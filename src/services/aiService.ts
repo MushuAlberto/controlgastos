@@ -9,6 +9,11 @@ Categorías disponibles: Comida, Transporte, Vivienda, Entretenimiento, Salud, O
 
 export const parseExpenseWithAI = async (text: string): Promise<ParsedExpense | null> => {
   try {
+    // Ensure Puter is signed in (silent if already done)
+    if (typeof puter !== 'undefined' && !puter.auth.isSignedIn()) {
+      await puter.auth.signIn({ attempt_temp_user_creation: true });
+    }
+
     const response = await puter.ai.chat(
       `${SYSTEM_PROMPT}\n\nExtrae los detalles del gasto de este texto: "${text}". 
       Devuelve el monto como número, la categoría más probable y una descripción corta.
@@ -27,6 +32,11 @@ export const parseExpenseWithAI = async (text: string): Promise<ParsedExpense | 
 
 export const scanReceiptWithAI = async (base64Image: string): Promise<ParsedExpense | null> => {
   try {
+    // Ensure Puter is signed in (silent if already done)
+    if (typeof puter !== 'undefined' && !puter.auth.isSignedIn()) {
+      await puter.auth.signIn({ attempt_temp_user_creation: true });
+    }
+
     // Puter handles multimodal chat by passing image data
     const response = await puter.ai.chat(
       [
@@ -61,6 +71,11 @@ export const getFinancialInsight = async (expenses: any[], goals: any[]): Promis
   if (expenses.length === 0) return "¡Empieza a registrar tus gastos para obtener consejos!";
   
   try {
+    // Ensure Puter is signed in (silent if already done)
+    if (typeof puter !== 'undefined' && !puter.auth.isSignedIn()) {
+      await puter.auth.signIn({ attempt_temp_user_creation: true });
+    }
+
     const summary = expenses.map(e => `${e.category}: ${e.amount} (${e.date})`).join(', ');
     const goalsSummary = goals.map(g => `${g.title}: ${g.currentAmount}/${g.targetAmount}`).join(', ');
     

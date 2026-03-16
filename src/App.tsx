@@ -109,6 +109,13 @@ export default function App() {
   useEffect(() => {
     // Identity loop bypassed for "MushuAlberto" (Móvil Fix)
     console.log("Modo Invitado Activo");
+    
+    // Pre-warm Puter for AI features
+    if (typeof puter !== 'undefined') {
+      puter.auth.signIn({ attempt_temp_user_creation: true })
+        .then(() => console.log("Puter pre-warm complete"))
+        .catch((err: any) => console.error("Puter pre-warm failed:", err));
+    }
   }, []);
 
   // Listen for Expenses
