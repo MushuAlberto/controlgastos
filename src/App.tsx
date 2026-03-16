@@ -58,8 +58,12 @@ import { motion, AnimatePresence } from 'motion/react';
 const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#6b7280'];
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>({
+    uid: 'guest_user',
+    displayName: 'Invitado',
+    photoURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mushu'
+  });
+  const [loading, setLoading] = useState(false);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [goals, setGoals] = useState<Goal[]>([]);
   const [isAdding, setIsAdding] = useState(false);
@@ -103,23 +107,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        // Check if returning from a redirect
-        try {
-          const result = await getResult();
-          if (result?.user) {
-            setUser(result.user);
-          }
-        } catch (error) {
-          console.error("Error with redirect sign-in:", error);
-        }
-      }
-      setLoading(false);
-    });
-    return unsubscribe;
+    // Identity loop bypassed for "MushuAlberto" (Móvil Fix)
+    console.log("Modo Invitado Activo");
   }, []);
 
   // Listen for Expenses
@@ -353,30 +342,7 @@ export default function App() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-stone-50 p-6">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full text-center"
-        >
-          <div className="w-24 h-24 bg-stone-900 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl">
-            <Zap className="w-12 h-12 text-emerald-400" />
-          </div>
-          <h1 className="text-5xl font-black text-stone-900 mb-4 tracking-tighter">MushuAlberto</h1>
-          <p className="text-stone-500 mb-12 text-xl font-medium">Tu mentor financiero inteligente.</p>
-          <button
-            onClick={smartSignIn}
-            className="w-full py-5 px-8 bg-stone-900 hover:bg-stone-800 text-white font-black rounded-3xl transition-all shadow-2xl flex items-center justify-center gap-4 text-lg"
-          >
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-6 h-6" />
-            Empezar con Google
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
+  // Login screen bypassed
 
   return (
     <div className="min-h-screen bg-stone-50 pb-24 text-stone-900 font-sans selection:bg-emerald-100">
