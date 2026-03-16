@@ -127,8 +127,8 @@ export default function App() {
 
     const q = query(
       collection(db, 'expenses'),
-      where('userId', '==', user.uid),
-      orderBy('date', 'desc')
+      where('userId', '==', user.uid)
+      // orderBy removed temporarily to avoid index issues
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -153,8 +153,8 @@ export default function App() {
 
     const q = query(
       collection(db, 'goals'),
-      where('userId', '==', user.uid),
-      orderBy('createdAt', 'desc')
+      where('userId', '==', user.uid)
+      // orderBy removed temporarily
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -230,8 +230,9 @@ export default function App() {
         description: '',
         date: format(new Date(), 'yyyy-MM-dd')
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error adding expense:", error);
+      alert("Error al guardar gasto: " + (error.message || "Error desconocido"));
     }
   };
 
@@ -254,8 +255,9 @@ export default function App() {
         targetAmount: '',
         deadline: format(new Date(), 'yyyy-MM-dd')
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error adding goal:", error);
+      alert("Error al guardar meta: " + (error.message || "Error desconocido"));
     }
   };
 
