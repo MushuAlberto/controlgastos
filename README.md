@@ -1,12 +1,12 @@
 # MonAi Pro 💰
 
-> Tu mentor financiero inteligente con IA. Gestión de gastos, metas de ahorro, entrada por voz y escaneo de recibos.
+> Tu mentor financiero inteligente con IA. Gestión de gastos, metas de ahorro, entrada por voz y escaneo de recibos. **¡Ahora potenciado por Claude 3.5 Sonnet (vía Puter.js) totalmente GRATIS!**
 
 ## ✨ Funcionalidades
 
 - 📊 Dashboard de gastos con gráficos
-- 🎤 Registro de gastos por voz
-- 📸 Escaneo de recibos con IA (Gemini)
+- 🎤 Registro de gastos por voz (Claude 3.5 Sonnet)
+- 📸 Escaneo de recibos con IA (Claude 3.5 Sonnet)
 - 🎯 Metas de ahorro
 - 🔐 Autenticación con Google (Firebase)
 - ☁️ Sincronización en la nube (Firestore)
@@ -17,8 +17,8 @@
 
 - Node.js 18+
 - Cuenta en [Firebase](https://console.firebase.google.com/)
-- API Key de [Google AI Studio (Gemini)](https://aistudio.google.com/app/apikey)
 - Cuenta en [Vercel](https://vercel.com/)
+- **¡No se necesita API Key para la IA!** (Usa Puter.js)
 
 ---
 
@@ -42,7 +42,6 @@ Las variables necesarias son:
 
 | Variable | Descripción |
 |---|---|
-| `GEMINI_API_KEY` | Tu API Key de Google AI Studio |
 | `VITE_FIREBASE_API_KEY` | API Key de Firebase |
 | `VITE_FIREBASE_AUTH_DOMAIN` | Auth Domain de Firebase |
 | `VITE_FIREBASE_PROJECT_ID` | Project ID de Firebase |

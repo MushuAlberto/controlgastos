@@ -14,7 +14,7 @@ import {
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth, db, signIn, logOut } from './firebase';
 import { Expense, Goal, CATEGORIES, Category } from './types';
-import { parseExpenseWithAI, getFinancialInsight, scanReceiptWithAI } from './services/geminiService';
+import { parseExpenseWithAI, getFinancialInsight, scanReceiptWithAI } from './services/aiService';
 import { 
   Plus, 
   Trash2, 
