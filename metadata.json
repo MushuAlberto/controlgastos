@@ -1,0 +1,5 @@
+{
+  "name": "MonAi Pro",
+  "description": "Tu mentor financiero inteligente con IA. Gestión de gastos, metas de ahorro, entrada por voz y escaneo de recibos.",
+  "requestFramePermissions": ["microphone", "camera"]
+}
