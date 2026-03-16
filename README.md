@@ -1,4 +1,4 @@
-# MonAi Pro 💰
+# MushuAlberto 💰
 
 > Tu mentor financiero inteligente con IA. Gestión de gastos, metas de ahorro, entrada por voz y escaneo de recibos. **¡Ahora potenciado por Claude 3.5 Sonnet (vía Puter.js) totalmente GRATIS!**
 

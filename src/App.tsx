@@ -12,7 +12,7 @@ import {
   getDocFromServer
 } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth, db, signIn, logOut } from './firebase';
+import { auth, db, smartSignIn, logOut, getResult } from './firebase';
 import { Expense, Goal, CATEGORIES, Category } from './types';
 import { parseExpenseWithAI, getFinancialInsight, scanReceiptWithAI } from './services/aiService';
 import { 
@@ -103,8 +103,20 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        // Check if returning from a redirect
+        try {
+          const result = await getResult();
+          if (result?.user) {
+            setUser(result.user);
+          }
+        } catch (error) {
+          console.error("Error with redirect sign-in:", error);
+        }
+      }
       setLoading(false);
     });
     return unsubscribe;
@@ -352,10 +364,10 @@ export default function App() {
           <div className="w-24 h-24 bg-stone-900 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl">
             <Zap className="w-12 h-12 text-emerald-400" />
           </div>
-          <h1 className="text-5xl font-black text-stone-900 mb-4 tracking-tighter">MonAi Pro</h1>
+          <h1 className="text-5xl font-black text-stone-900 mb-4 tracking-tighter">MushuAlberto</h1>
           <p className="text-stone-500 mb-12 text-xl font-medium">Tu mentor financiero inteligente.</p>
           <button
-            onClick={signIn}
+            onClick={smartSignIn}
             className="w-full py-5 px-8 bg-stone-900 hover:bg-stone-800 text-white font-black rounded-3xl transition-all shadow-2xl flex items-center justify-center gap-4 text-lg"
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-6 h-6" />
@@ -375,7 +387,7 @@ export default function App() {
             <div className="w-10 h-10 bg-stone-900 rounded-2xl flex items-center justify-center shadow-lg">
               <Zap className="w-5 h-5 text-emerald-400" />
             </div>
-            <span className="font-black text-2xl tracking-tighter">MonAi</span>
+            <span className="font-black text-2xl tracking-tighter">MushuAlberto</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden sm:block text-right">
